@@ -40,6 +40,8 @@ def image_post():
             print(os.path.join(os.path.dirname(os.path.abspath(__file__)), "upload", filename))
             f.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), "upload", filename))
             return filename
+        return "file req error"
+    return "post error"
 
 if __name__ == '__main__':
     #app.debug = True # デバッグモード有効化
