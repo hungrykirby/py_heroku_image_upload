@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import numpy as np
 import os
+import glob
 #from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug import secure_filename
 
@@ -42,6 +43,14 @@ def image_post():
             return filename
         return "file req error"
     return "post error"
+
+@app.route('/fetch-image', methods=['GET', 'POST'])
+def fetch_image():
+    if request.method == 'GET':
+        for fn in glob.glob(os.path.join(os.getcwd(),"upload","*")):
+            print(fn)
+    return "fetch image"
+
 
 if __name__ == '__main__':
     #app.debug = True # デバッグモード有効化
