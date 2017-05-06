@@ -37,7 +37,8 @@ def image_post():
         f = request.files['file']
         if f and allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            f.save(os.path.join(os.getcwd(), "upload", filename))
+            print(os.path.join(os.path.dirname(os.path.abspath(__file__)), "upload", filename))
+            f.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), "upload", filename))
             return filename
 
 if __name__ == '__main__':
