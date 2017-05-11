@@ -60,9 +60,9 @@ def download():
     path_2_tmp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp")
     files = os.listdir(path_2_tmp)
     print(files)
-    for filename in files:
-        print(os.path.join(path_2_tmp, filename))
-        res = requests.get(os.path.join(path_2_tmp, filename), stream=True)
+    for fn in glob.glob(os.path.join(path_2_tmp, "*")):
+        print(fn)
+        res = requests.get(fn, stream=True)
         print(res)
         if res.status_code == 200:
             with open(filename, 'wb') as file:
