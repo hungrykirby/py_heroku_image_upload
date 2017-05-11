@@ -5,6 +5,7 @@ import os
 import glob
 #from flask.ext.sqlalchemy import SQLAlchemy
 from werkzeug import secure_filename
+import requests
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -53,6 +54,21 @@ def fetch_image():
         for fn in glob.glob(os.path.join(os.getcwd(),"tmp","*")):
             print(fn)
     return "fetch image"
+
+@app.route('/download-image', methods=['GET', 'POST'])
+def download():
+    path_2_tmp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp")
+    files = os.listdir(path_2_tmp)
+    print(files)
+    for filename in files:
+        print(os.path.join(path_2_tmp, filename))
+        res = requests.get(os.path.join(path_2_tmp, filename), stream=True)
+        print(res)
+        if res.status_code == 200:
+            with open(filename, 'wb') as file:
+                for chunk in res.iter_content(chunk_size=1024):
+                    file.write(chunk)
+    return "download"
 
 
 if __name__ == '__main__':
