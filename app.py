@@ -38,8 +38,8 @@ def image_post():
         f = request.files['file']
         if f and allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            print(os.path.join(os.path.dirname(os.path.abspath(__file__)), "upload", filename))
-            f.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), "upload", filename))
+            print(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp", filename))
+            f.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp", filename))
             return filename
         return "file req error"
     return "post error"
@@ -47,7 +47,7 @@ def image_post():
 @app.route('/fetch-image', methods=['GET', 'POST'])
 def fetch_image():
     if request.method == 'GET':
-        for fn in glob.glob(os.path.join(os.getcwd(),"upload","*")):
+        for fn in glob.glob(os.path.join(os.getcwd(),"tmp","*")):
             print(fn)
     return "fetch image"
 
