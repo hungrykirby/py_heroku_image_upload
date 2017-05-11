@@ -62,12 +62,9 @@ def download():
     print(files)
     for fn in glob.glob(os.path.join(path_2_tmp, "*")):
         print(fn)
-        res = requests.get(fn, stream=True)
-        print(res)
-        if res.status_code == 200:
-            with open(filename, 'wb') as file:
-                for chunk in res.iter_content(chunk_size=1024):
-                    file.write(chunk)
+        with open(fn, 'wb') as file:
+            for chunk in res.iter_content(chunk_size=1024):
+                file.write(chunk)
     return "download"
 
 
