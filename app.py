@@ -38,8 +38,11 @@ def image_post():
         f = request.files['file']
         if f and allowed_file(f.filename):
             filename = secure_filename(f.filename)
-            print(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp", filename))
-            f.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp", filename))
+            path_2_tmp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp")
+            print(os.path.join(path_2_tmp, filename))
+            if not os.path.exists(path_2_tmp):
+                os.mkdir(path_2_tmp)
+            f.save(os.path.join(path_2_tmp, filename))
             return filename
         return "file req error"
     return "post error"
